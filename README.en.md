@@ -2,13 +2,14 @@
 
 #### Description
 vue旅游网
+@author wx
 
 #### Software Architecture
 Software architecture description
 
 #### Installation
 
-1.  xxxx
+1.  npm install
 2.  xxxx
 3.  xxxx
 
