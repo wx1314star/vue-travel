@@ -118,3 +118,115 @@ git commit -m '20220904-add css and js'
 git push
 ```
 
+###### 四、项目目录结构搭建
+
+![image-20220904220720778](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220904220720778.png)
+
+在src目录的组件文件夹里创建几个文件夹，分别放置首页和城市页面
+
+Index.js修改
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from '@/components/home/Home'
+
+Vue.use(Router)
+
+export default new Router({
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    }
+  ]
+})
+```
+
+home-->pages-->Home.vue
+
+```vue
+<template>
+    <div>
+        <home-header />
+    </div>
+</template>
+<script>
+    import HomeHeader from './pages/Header'
+    export default{
+        components:{
+            HomeHeader
+        }
+    }
+</script>
+<style>
+
+</style>
+```
+
+Header.vue默认内容
+
+###### 五、添加头部布局
+
+添加Header.vue内容(图标引入在iconfont项目里复制图标代码即可)
+
+```vue
+<template>
+    <div class="header">
+        <div class="header-left">
+            <span class="iconfont">
+                &#xe624;
+            </span>
+        </div>
+        <div class="header-search">
+            <span class="iconfont">
+                &#xe632;
+            </span>
+            输入城市/景点/游玩主题
+        </div>
+        <div class="header-right">
+            北京<span class="iconfont">&#xe600;</span>
+        </div>
+
+    </div>
+</template>
+<script>
+
+</script>
+<style scoped>
+.header {
+    width: 100%;
+    line-height: .88rem;
+    background: #00bcd4;
+    font-size: .36rem;
+    color: #fff;
+    display: flex;
+}
+
+.header-left {
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.header-search {
+    flex: 1;
+    background: #fff;
+    height: .6rem;
+    margin: .14rem 0;
+    border-radius: .1rem;
+    color:#e4e7ea;
+    line-height: .6rem;
+    font-size: .28rem;
+    padding-left: .2rem;
+}
+.header-right{
+    font-size: .28rem;
+    padding:0 .2rem;
+}
+</style>
+```
+
+![image-20220905084959653](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220905084959653.png)
