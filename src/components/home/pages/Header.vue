@@ -20,13 +20,15 @@
 <script>
 
 </script>
-<style scoped>
+<style scoped lang="stylus">
+@import '~css/var.styl'
+
 .header {
     width: 100%;
     line-height: .88rem;
-    background: #00bcd4;
+    background: $bgColor;
     font-size: .36rem;
-    color: #fff;
+    color: $textColor;
     display: flex;
 }
 

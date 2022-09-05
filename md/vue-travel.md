@@ -230,3 +230,82 @@ Header.vue默认内容
 ```
 
 ![image-20220905084959653](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220905084959653.png)
+
+###### 六、styuls的全局css组件安装
+
+---安装最新版注意：需要报错需要降版本---
+
+```shell
+cnpm install stylus@0.54.5  stylus-loader@3.0.2 --save
+```
+
+在src-->assets-->css文件夹内创建var.styl文件
+
+```stylus
+$bgColor = #00bcd4
+$textColor = #fff
+```
+
+配置全局访问路径
+
+修改build-->web pack.base.conf.js文件内容,添加全局css路径
+
+```js
+resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': resolve('src'),
+      'css': resolve('src/assets/css')
+    }
+  },
+```
+
+在Header.vue文件中使用
+
+```css
+<style scoped lang="stylus">
+@import '~css/var.styl'
+
+.header {
+    width: 100%;
+    line-height: .88rem;
+    background: $bgColor;
+    font-size: .36rem;
+    color: $textColor;
+    display: flex;
+}
+
+.header-left {
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.header-search {
+    flex: 1;
+    background: #fff;
+    height: .6rem;
+    margin: .14rem 0;
+    border-radius: .1rem;
+    color:#e4e7ea;
+    line-height: .6rem;
+    font-size: .28rem;
+    padding-left: .2rem;
+}
+.header-right{
+    font-size: .28rem;
+    padding:0 .2rem;
+}
+</style>
+```
+
+接着修改main.js里全局引入的css代码
+
+```js
+//css
+import 'css/reset.css'
+import 'css/iconfont.css'
+```
+
