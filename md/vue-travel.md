@@ -309,3 +309,112 @@ import 'css/reset.css'
 import 'css/iconfont.css'
 ```
 
+检查代码运行并推送到gitee
+
+```shell
+git add .
+git commit -m '20220905add stylu to header'
+git push
+```
+
+###### 七、添加Swiper.vue缩略图组件和引入
+
+home-->pages-->Swiper.vue，并在Home.vue中引入Swiper.vue
+
+接着在github里搜索vue-swiper组件下载并引入
+
+```shell
+cnpm install swiper@4.5.1 vue-awesome-swiper@3.1.3 --save
+```
+
+main.js里引入swiper
+
+```
+//swiper组件
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper)
+```
+
+接着编写Swiper.vue里的内容(图片需下载到assets/img文件夹下,没有自己创建)
+
+样式里的 xxx >>> 是样式穿透
+
+```vue
+<template>
+    <div class="header-swiper">
+        <swiper :options="swiperOption">
+            <swiper-slide v-for="item in swiperList" :key="item.id">
+                <img :src="item.imgUrl" />
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+    </div>
+</template>
+
+<script >
+    export default{
+        data(){
+            return{
+                swiperList:[
+                    {
+                        id:"01",
+                        imgUrl:require("@/assets/img/swiper1.jpg")
+                    },
+                    {
+                        id:"02",
+                        imgUrl:require("@/assets/img/swiper2.jpg")
+                    },
+                    {
+                        id:"03",
+                        imgUrl:require("@/assets/img/swiper3.jpg")
+                    }
+                ],
+                swiperOption:{
+                    pagination:{
+                        el:'.swiper-pagination'
+                    },
+                    loop:true
+                }
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .header-swiper{
+        width: 100%;
+        height: 2rem;
+    }
+    .header-swiper img{
+        width: 100%;
+        height: 100%;
+    }
+    
+   .header-swiper >>> .swiper-pagination-bullet-active{
+        background:#fff;
+    }
+</style>
+```
+
+###### 八、修复swiper图片掉块和颜色填充
+
+掉块问题，利用浏览器网络设置成3G后，可以看到文字顶上去了
+
+![image-20220905151502787](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220905151502787.png)
+
+![image-20220905151524696](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220905151524696.png)
+
+修改Swiper.vue中样式css内容
+
+```css
+  .header-swiper{
+       background: #ccc;
+       height: 0;
+       padding-bottom: 26.67%;
+    }
+```
+
+然后测试效果，解决掉块
+
+![image-20220905151801596](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220905151801596.png)
