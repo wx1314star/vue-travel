@@ -46,7 +46,7 @@
     }
     .header-swiper img{
         width: 100%;
-        height: 100%;
+        height: 100px;
     }
     
    .header-swiper >>> .swiper-pagination-bullet-active{
