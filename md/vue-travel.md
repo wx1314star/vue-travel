@@ -827,3 +827,120 @@ git commit -m '20220908 add border to Location.vue'
 git push
 ```
 
+###### 十二、门票特卖组件布局
+
+添加门票特卖组件Activity.vue
+
+```vue
+<template>
+    <div class="activity border-top">
+        <div class="activity-item border-right" v-for="item in iconList" :key="item.id">
+            <img :src="item.imgUrl"/>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default{
+        data(){
+            return{
+                iconList:[
+                    {
+                        id:"01",
+                        imgUrl: require("@/assets/img/ticket1.png")
+                    },
+                    {
+                        id:"02",
+                        imgUrl: require("@/assets/img/ticket2.png")
+                    }
+                ]
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .activity{
+        position: relative;
+        display:flex;
+        margin-top: .2rem;
+        background-color: #fff;
+    }
+    .activity>.activity-item{
+        flex:1;
+        font-size: .28rem;
+        text-align: center;
+        /* background-color: red; */
+        line-height: 1rem;
+        height: 1.4rem;
+    }
+    .activity>.activity-item>img{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+```
+
+修改Home.vue,加上背景颜色灰色做一个对比
+
+```vue
+<template>
+    <div class="home">
+        <home-header />
+        <home-swiper />
+        <home-icons />
+        <home-location />
+        <home-activity />
+    </div>
+</template>
+<script>
+    import HomeHeader from './pages/Header'
+    import HomeSwiper from './pages/Swiper'
+    import HomeIcons from './pages/Icons'
+    import HomeLocation from './pages/Location'
+    import HomeActivity from './pages/Activity'
+    export default{
+        components:{
+            HomeHeader,
+            HomeSwiper,
+            HomeIcons,
+            HomeLocation,
+            HomeActivity
+        }
+    }
+</script>
+<style scoped>
+    .home{
+        background-color: #f5f5f5;
+    }
+</style>
+```
+
+修改对应的Location.vue和Icons.vue
+
+```css
+.location{
+        position: relative;
+        display:flex;
+        background-color: #fff;
+    }
+```
+
+```css
+.icon {
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+}
+```
+
+![image-20220908163757278](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220908163757278.png)
+
+提交代码到gitee
+
+```shell
+git add .
+git commit -m '20220908 add ticket to Activity.vue'
+git push
+```
+
