@@ -1,10 +1,14 @@
 <template>
 <div class="icons">
 
-    <div class="icons-item" v-for="item in iconsList" :key="item.id">
-        <img :src="item.imgUrl" />
-        <p>{{item.title}}</p>
-    </div>
+    <swiper :options="swiperOption">
+        <swiper-slide v-for="(item,key) in page" :key="key">
+            <div class="icons-item" v-for="page in item" :key="page.id">
+                <img :src="page.imgUrl" />
+                <p>{{page.title}}</p>
+            </div>
+        </swiper-slide>
+    </swiper>
 
 </div>
 </template>
@@ -13,6 +17,7 @@
 export default {
     data() {
         return {
+            swiperOption: {},
             iconsList: [{
                     id: "01",
                     imgUrl: require("@/assets/img/icon1.png"),
@@ -57,6 +62,21 @@ export default {
                     title: "全部玩乐",
                 },
             ]
+        }
+    }
+    ,
+    //计算属性
+    computed: {
+        page() {
+            let pages = [];
+            this.iconsList.forEach((item, index) => {
+                let idx = Math.floor(index / 8);
+                if (!pages[idx]) {
+                    pages[idx] = [];
+                }
+                pages[idx].push(item);
+            })
+            return pages;
         }
     }
 }
