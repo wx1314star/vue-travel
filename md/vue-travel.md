@@ -666,3 +666,164 @@ git commit -m '20220908 add computed Icons.vue icon'
 git push
 ```
 
+###### 十一、定位组件布局
+
+新建Location.vue组件,并加入到Home.vue中
+
+```vue
+<template>
+    <div>
+        <home-header />
+        <home-swiper />
+        <home-icons />
+        <home-location />
+    </div>
+</template>
+<script>
+    import HomeHeader from './pages/Header'
+    import HomeSwiper from './pages/Swiper'
+    import HomeIcons from './pages/Icons'
+    import HomeLocation from './pages/Location'
+    export default{
+        components:{
+            HomeHeader,
+            HomeSwiper,
+            HomeIcons,
+            HomeLocation
+        }
+    }
+</script>
+<style>
+
+</style>
+```
+
+编辑Location.vue中内容
+
+```vue
+<template>
+    <div class="location border-top">
+        <div class="location-item border-right">
+            <span class="iconfont">&#xe63f;</span>
+            北京大兴
+        </div>
+        <div class="location-item">
+            <span class="iconfont">&#xe844;</span>
+            玩水季
+        </div>
+    </div>
+</template>
+
+<script>
+
+</script>
+
+<style scoped>
+    .location{
+        position: relative;
+        display:flex;
+    }
+    .location>.location-item{
+        flex:1;
+        font-size: .28rem;
+        text-align: center;
+        /* background-color: red; */
+        line-height: 1rem;
+    }
+</style>
+```
+
+添加到公共css----assets>css>reset.css内容中加入上和右边框内容
+
+```css
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html{
+	font-size: 50px;
+}
+
+a{
+	text-decoration: none;
+}
+
+.border-top::before{
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 1px;
+	border-top: 1px solid #e0e0e0;
+}
+.border-right::before{
+	content: "";
+	position: absolute;
+	width: 1px;
+	height: 100%;
+	border-right: 1px solid #e0e0e0;
+	left: 50%;
+}
+```
+
+页面展示效果
+
+![image-20220908155839319](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220908155839319.png)
+
+最后提交代码到gitee
+
+```shell
+git add .
+git commit -m '20220908 add border to Location.vue'
+git push
+```
+
