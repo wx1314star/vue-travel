@@ -42,11 +42,12 @@
     .header-swiper{
        background: #ccc;
        height: 0;
-       padding-bottom: 26.67%;
+       /* padding-bottom: 26.67%; */
+       padding-bottom: 55%;
     }
     .header-swiper img{
         width: 100%;
-        height: 100px;
+        height: 100%;
     }
     
    .header-swiper >>> .swiper-pagination-bullet-active{

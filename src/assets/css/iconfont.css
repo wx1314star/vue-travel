@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3629074 */
-  src: url('../font/iconfont.woff2') format('woff2'),
-       url('../font/iconfont.woff?t=1662299237085') format('woff'),
-       url('../font/iconfont.ttf?t=1662299237085') format('truetype');
+  src: url('../font/iconfont.woff2?t=1662627399039') format('woff2'),
+       url('../font/iconfont.woff?t=1662627399039') format('woff'),
+       url('../font/iconfont.ttf?t=1662627399039') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,10 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-jiantouyou:before {
+  content: "\e62d";
 }
 
 .icon-xiajiantou:before {

@@ -396,6 +396,28 @@ Vue.use(VueAwesomeSwiper)
         background:#fff;
     }
 </style>
+
+```
+
+如图片大则需要自己微调
+
+```vue
+<style scoped>
+    .header-swiper{
+       background: #ccc;
+       height: 0;
+       /* padding-bottom: 26.67%; */
+       padding-bottom: 55%;
+    }
+    .header-swiper img{
+        width: 100%;
+        height: 100%;
+    }
+    
+   .header-swiper >>> .swiper-pagination-bullet-active{
+        background:#fff;
+    }
+</style>
 ```
 
 ###### 八、修复swiper图片掉块和颜色填充
@@ -941,6 +963,448 @@ git push
 ```shell
 git add .
 git commit -m '20220908 add ticket to Activity.vue'
+git push
+```
+
+###### 十三、热门榜单布局
+
+添加Hot.vue组件在pages文件夹里
+
+添加Hot.vue组件注册到Home.vue里
+
+编写Hot.vue内容
+
+```vue
+<template>
+<div class="hot">
+    <div class="hot-top">
+        <img src="@/assets/img/hot.png" />
+        <span class="hot-title-left">本周热门榜单</span>
+        <span class="iconfont hot-title-right">全部榜单&#xe62d;</span>
+    </div>
+
+    <ul class="hot-list">
+        <li class="hot-item" v-for="item in hotList" :key="item.id">
+            <img :src="item.imgUrl" />
+            <p>{{item.title}}</p>
+            <p>
+                <span class="hot-mark">￥{{item.mark}}</span>起
+            </p>
+        </li>
+    </ul>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            hotList: [{
+                id: "01",
+                imgUrl: require('@/assets/img/list1.jpg'),
+                title: "云南省博物馆",
+                mark: 2.7
+            }, {
+                id: "02",
+                imgUrl: require('@/assets/img/list2.jpg'),
+                title: "云南民族村",
+                mark: 79.0
+            }, {
+                id: "03",
+                imgUrl: require('@/assets/img/list3.jpg'),
+                title: "昆明融创海世界",
+                mark: 180.0
+            }, {
+                id: "04",
+                imgUrl: require('@/assets/img/list4.jpg'),
+                title: "石林",
+                mark: 0.4
+            }, {
+                id: "05",
+                imgUrl: require('@/assets/img/list5.jpg'),
+                title: "七彩云南欢乐世界",
+                mark: 198
+            }, {
+                id: "06",
+                imgUrl: require('@/assets/img/list6.jpg'),
+                title: "云南野生动物园",
+                mark: 100
+            }, {
+                id: "07",
+                imgUrl: require('@/assets/img/list7.jpg'),
+                title: "昆明西山龙门景区",
+                mark: 75.0
+            }, {
+                id: "08",
+                imgUrl: require('@/assets/img/list8.jpg'),
+                title: "九乡风景名胜区",
+                mark: 0.9
+            }, {
+                id: "09",
+                imgUrl: require('@/assets/img/list9.jpg'),
+                title: "滇池",
+                mark: 89.0
+            }, {
+                id: "10",
+                imgUrl: require('@/assets/img/list10.jpg'),
+                title: "昆明动物园",
+                mark: 20.0
+            }, ]
+        }
+    }
+}
+</script>
+
+<style scoped>
+.hot {
+    margin-top: .2rem;
+    background-color: #fff;
+    font-size: .28rem;
+}
+
+.hot-top {
+    padding: .2rem;
+}
+
+.hot-top img {
+    width: .3rem;
+    height: .3rem;
+}
+
+.hot-title-left {
+    font-size: .32rem;
+    color: #212121;
+}
+
+.hot-title-right {
+    position: absolute;
+    right: .2rem;
+    font-weight: 500;
+    font-size: .28rem;
+    color: #616161;
+}
+
+.hot-list {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    /* 强制不能换行 */
+    white-space: nowrap;
+    height: 3rem;
+}
+
+.hot-item {
+    padding: 0 .2rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+}
+
+.hot-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.hot-item p {
+    margin-top: .1rem;
+    text-align: center;
+}
+
+.hot-item p .hot-mark {
+    color: #ff8300;
+    font-size: .32rem;
+}
+</style>
+```
+
+页面效果
+
+![image-20220909093307221](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220909093307221.png)
+
+###### 十四、解决文字溢出显示问题(文字超出范围显示...)
+
+![image-20220909103742116](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220909103742116.png)
+
+添加一个公共的common.styl编写溢出样式  assets>css文件夹下
+
+```stylus
+textOverflow()
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+```
+
+编写Hot.vue内容
+
+```vue
+<template>
+<div class="hot">
+    <div class="hot-top">
+        <img src="@/assets/img/hot.png" />
+        <span class="hot-title-left">本周热门榜单</span>
+        <span class="iconfont hot-title-right">全部榜单&#xe62d;</span>
+    </div>
+
+    <ul class="hot-list">
+        <li class="hot-item" v-for="item in hotList" :key="item.id">
+            <img :src="item.imgUrl" />
+            <p>{{item.title}}</p>
+            <p>
+                <span class="hot-mark">￥{{item.mark}}</span>起
+            </p>
+        </li>
+    </ul>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            hotList: [{
+                id: "01",
+                imgUrl: require('@/assets/img/list1.jpg'),
+                title: "云南省博物馆",
+                mark: 2.7
+            }, {
+                id: "02",
+                imgUrl: require('@/assets/img/list2.jpg'),
+                title: "云南民族村",
+                mark: 79.0
+            }, {
+                id: "03",
+                imgUrl: require('@/assets/img/list3.jpg'),
+                title: "昆明融创海世界",
+                mark: 180.0
+            }, {
+                id: "04",
+                imgUrl: require('@/assets/img/list4.jpg'),
+                title: "石林",
+                mark: 0.4
+            }, {
+                id: "05",
+                imgUrl: require('@/assets/img/list5.jpg'),
+                title: "七彩云南欢乐世界",
+                mark: 198
+            }, {
+                id: "06",
+                imgUrl: require('@/assets/img/list6.jpg'),
+                title: "云南野生动物园",
+                mark: 100
+            }, {
+                id: "07",
+                imgUrl: require('@/assets/img/list7.jpg'),
+                title: "昆明西山龙门景区",
+                mark: 75.0
+            }, {
+                id: "08",
+                imgUrl: require('@/assets/img/list8.jpg'),
+                title: "九乡风景名胜区",
+                mark: 0.9
+            }, {
+                id: "09",
+                imgUrl: require('@/assets/img/list9.jpg'),
+                title: "滇池",
+                mark: 89.0
+            }, {
+                id: "10",
+                imgUrl: require('@/assets/img/list10.jpg'),
+                title: "昆明动物园",
+                mark: 20.0
+            }, ]
+        }
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/common.styl';
+
+.hot {
+    margin-top: .2rem;
+    background-color: #fff;
+    font-size: .28rem;
+}
+
+.hot-top {
+    padding: .2rem;
+}
+
+.hot-top img {
+    width: .3rem;
+    height: .3rem;
+}
+
+.hot-title-left {
+    font-size: .32rem;
+    color: #212121;
+}
+
+.hot-title-right {
+    position: absolute;
+    right: .2rem;
+    font-weight: 500;
+    font-size: .28rem;
+    color: #616161;
+}
+
+.hot-list {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    /* 强制不能换行 */
+    white-space: nowrap;
+    height: 3rem;
+}
+
+.hot-item {
+    padding: 0 .2rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-block;
+}
+
+.hot-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.hot-item p {
+    margin-top: .1rem;
+    text-align: center;
+    textOverflow();
+}
+
+.hot-item p .hot-mark {
+    color: #ff8300;
+    font-size: .32rem;
+}
+</style>
+```
+
+修改原Icons.vue内容并添加common.styl文件导入
+
+```vue
+<template>
+<div class="icons">
+
+    <swiper :options="swiperOption">
+        <swiper-slide v-for="(item,key) in page" :key="key">
+            <div class="icons-item" v-for="page in item" :key="page.id">
+                <img :src="page.imgUrl" />
+                <p>{{page.title}}</p>
+            </div>
+        </swiper-slide>
+    </swiper>
+
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            swiperOption: {},
+            iconsList: [{
+                    id: "01",
+                    imgUrl: require("@/assets/img/icon1.png"),
+                    title: "景点门票",
+                },
+                {
+                    id: "02",
+                    imgUrl: require("@/assets/img/icon2.png"),
+                    title: "必游榜单",
+                },
+                {
+                    id: "03",
+                    imgUrl: require("@/assets/img/icon3.png"),
+                    title: "夏日玩水",
+                }, {
+                    id: "04",
+                    imgUrl: require("@/assets/img/icon4.png"),
+                    title: "主题乐园",
+                }, {
+                    id: "05",
+                    imgUrl: require("@/assets/img/icon5.png"),
+                    title: "动植物园",
+                }, {
+                    id: "06",
+                    imgUrl: require("@/assets/img/icon6.png"),
+                    title: "故宫",
+                }, {
+                    id: "07",
+                    imgUrl: require("@/assets/img/icon7.png"),
+                    title: "一日游",
+                }, {
+                    id: "08",
+                    imgUrl: require("@/assets/img/icon8.png"),
+                    title: "公园",
+                }, {
+                    id: "09",
+                    imgUrl: require("@/assets/img/icon9.png"),
+                    title: "游乐场",
+                }, {
+                    id: "10",
+                    imgUrl: require("@/assets/img/icon10.png"),
+                    title: "全部玩乐",
+                },
+            ]
+        }
+    },
+    //计算属性
+    computed: {
+        page() {
+            let pages = [];
+            this.iconsList.forEach((item, index) => {
+                let idx = Math.floor(index / 8);
+                if (!pages[idx]) {
+                    pages[idx] = [];
+                }
+                pages[idx].push(item);
+            })
+            return pages;
+        }
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/common.styl';
+
+.icon {
+    width: 100%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.icons-item {
+    width: 25%;
+    padding-bottom: 25%;
+    height: 0;
+    float: left;
+}
+
+.icons-item img {
+    width: 1.1rem;
+    height: 1.1rem;
+    display: block;
+    margin: 0 auto;
+    padding-top: .2rem;
+}
+
+.icons-item p {
+    margin-top: .1rem;
+    font-size: .28rem;
+    text-align: center;
+    color: #212121;
+    textOverflow();
+}
+</style>
+```
+
+提交代码到gitee
+
+```shell
+git add .
+git commit -m '20220909 add font-overflow css to Hot.vue'
 git push
 ```
 

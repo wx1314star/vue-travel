@@ -13,7 +13,7 @@
             输入城市/景点/游玩主题
         </div>
         <div class="header-right">
-            北京<span class="iconfont">&#xe600;</span>
+        昆明<span class="iconfont">&#xe600;</span>
         </div>
     </div>
 </template>

@@ -63,8 +63,7 @@ export default {
                 },
             ]
         }
-    }
-    ,
+    },
     //计算属性
     computed: {
         page() {
@@ -82,7 +81,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="stylus" scoped>
+@import '~css/common.styl';
+
 .icon {
     width: 100%;
     overflow: hidden;
@@ -109,5 +110,6 @@ export default {
     font-size: .28rem;
     text-align: center;
     color: #212121;
+    textOverflow();
 }
 </style>

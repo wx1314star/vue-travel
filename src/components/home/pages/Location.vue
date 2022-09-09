@@ -2,7 +2,7 @@
     <div class="location border-top">
         <div class="location-item border-right">
             <span class="iconfont">&#xe63f;</span>
-            北京大兴
+            昆明西山
         </div>
         <div class="location-item">
             <span class="iconfont">&#xe844;</span>
