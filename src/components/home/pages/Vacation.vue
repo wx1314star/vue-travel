@@ -20,36 +20,10 @@
 
 <script>
 export default {
+    props:['vacationList'],
     data(){
         return {
-            vacationList:[
-                {
-                    id:"01",
-                    imgUrl:require("@/assets/img/where1.jpg"),
-                    title:"昆明必打卡",
-                    msg:"走进春城，感受彩云之南"
-                },{
-                    id:"02",
-                    imgUrl:require("@/assets/img/where2.jpg"),
-                    title:"带娃出行",
-                    msg:"宝贝们好喜欢这里哦"
-                },{
-                    id:"03",
-                    imgUrl:require("@/assets/img/where3.jpg"),
-                    title:"本地人在这玩",
-                    msg:"四季如春的城市，浪漫色彩浓厚的城市，多民族融合的城市"
-                },{
-                    id:"04",
-                    imgUrl:require("@/assets/img/where4.jpg"),
-                    title:"昆明公园游",
-                    msg:"到昆明，游公园，跑跑步"
-                },{
-                    id:"05",
-                    imgUrl:require("@/assets/img/where5.jpg"),
-                    title:"买花一日游",
-                    msg:"带不走的云彩，带走的花儿"
-                }
-            ]
+            
         }
     }
 }

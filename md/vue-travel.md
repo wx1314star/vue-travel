@@ -1709,3 +1709,348 @@ git commit -m '20220910 add Vacation.vue'
 git push
 ```
 
+###### 十七、把数据mock以及axios请求
+
+首先先在static文件夹下创建一个mock文件夹,接着创建一个dataHome.json文件,把五个用到数据的vue中data内容剪切到dataHome.json文件中
+
+```json
+{
+    "data": [
+        {
+            "city": "昆明",
+            "swiperList": [
+                {
+                    "id": "01",
+                    "imgUrl": "http://localhost:8300/static/mock/img/swiper1.jpg"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "http://localhost:8300/static/mock/img/swiper2.jpg"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "http://localhost:8300/static/mock/img/swiper3.jpg"
+                }
+            ],
+            "iconsList": [
+                {
+                    "id": "01",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon1.png",
+                    "title": "景点门票"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon2.png",
+                    "title": "必游榜单"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon3.png",
+                    "title": "夏日玩水"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon4.png",
+                    "title": "主题乐园"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon5.png",
+                    "title": "动植物园"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon6.png",
+                    "title": "故宫"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon7.png",
+                    "title": "一日游"
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon8.png",
+                    "title": "公园"
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon9.png",
+                    "title": "游乐场"
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "http://localhost:8300/static/mock/img/icon10.png",
+                    "title": "全部玩乐"
+                }
+            ],
+            "hotList": [
+                {
+                    "id": "01",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list1.jpg",
+                    "title": "云南省博物馆",
+                    "mark": 2.7
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list2.jpg",
+                    "title": "云南民族村",
+                    "mark": 79.0
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list3.jpg",
+                    "title": "昆明融创海世界",
+                    "mark": 180.0
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list4.jpg",
+                    "title": "石林",
+                    "mark": 0.4
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list5.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "mark": 198
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list6.jpg",
+                    "title": "云南野生动物园",
+                    "mark": 100
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list7.jpg",
+                    "title": "昆明西山龙门景区",
+                    "mark": 75.0
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list8.jpg",
+                    "title": "九乡风景名胜区",
+                    "mark": 0.9
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list9.jpg",
+                    "title": "滇池",
+                    "mark": 89.0
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "http://localhost:8300/static/mock/img/list10.jpg",
+                    "title": "昆明动物园",
+                    "mark": 20.0
+                }
+            ],
+            "likeList": [
+                {
+                    "id": "01",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like1.jpg",
+                    "title": "梦幻联邦乐园",
+                    "msg": "120",
+                    "price": "280",
+                    "map": "西山区"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like2.jpg",
+                    "title": "云南民族村",
+                    "msg": "29246",
+                    "price": "79",
+                    "map": "西山区"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like3.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "msg": "23457",
+                    "price": "198",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like4.jpg",
+                    "title": "七彩云南古滇精品湿地",
+                    "msg": "868",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like5.jpg",
+                    "title": "七彩云南古滇温泉山庄",
+                    "msg": "1253",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like6.jpg",
+                    "title": "昆明西山龙门景区",
+                    "msg": "5434",
+                    "price": "75",
+                    "map": "西山区"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "http://localhost:8300/static/mock/img/like7.jpg",
+                    "title": "石林",
+                    "msg": "18074",
+                    "price": "0.39",
+                    "map": "石林彝族白族自治县"
+                }
+            ],
+            "vacationList": [
+                {
+                    "id": "01",
+                    "imgUrl": "http://localhost:8300/static/mock/img/where1.jpg",
+                    "title": "昆明必打卡",
+                    "msg": "走进春城，感受彩云之南"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "http://localhost:8300/static/mock/img/where2.jpg",
+                    "title": "带娃出行",
+                    "msg": "宝贝们好喜欢这里哦"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "http://localhost:8300/static/mock/img/where3.jpg",
+                    "title": "本地人在这玩",
+                    "msg": "四季如春的城市，浪漫色彩浓厚的城市，多民族融合的城市"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "http://localhost:8300/static/mock/img/where4.jpg",
+                    "title": "昆明公园游",
+                    "msg": "到昆明，游公园，跑跑步"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "http://localhost:8300/static/mock/img/where5.jpg",
+                    "title": "买花一日游",
+                    "msg": "带不走的云彩，带走的花儿"
+                }
+            ]
+        },
+        {
+            "city": "北京"
+        }
+    ]
+}
+```
+
+接着安装axios，已安装的忽略这步骤
+
+```shell
+npm install axios --save
+```
+
+在main.js主js中加入axios (放在swiper组件引入代码下)
+
+```
+//axios
+import axios from 'axios'
+Vue.prototype.$http = axios
+```
+
+然后在Home.vue父组件中加入
+
+```vue
+<template>
+<div class="home">
+    <home-header />
+    <home-swiper :swiperList='swiperList'/>
+    <home-icons :iconsList='iconsList'/>
+    <home-location />
+    <home-activity />
+    <home-hot :hotList='hotList' />
+    <home-like :likeList='likeList'/>
+    <home-vacation :vacationList='vacationList'/>
+</div>
+</template>
+
+<script>
+import HomeHeader from './pages/Header'
+import HomeSwiper from './pages/Swiper'
+import HomeIcons from './pages/Icons'
+import HomeLocation from './pages/Location'
+import HomeActivity from './pages/Activity'
+import HomeHot from './pages/Hot'
+import HomeLike from './pages/Like'
+import HomeVacation from './pages/Vacation'
+export default {
+    components: {
+        HomeHeader,
+        HomeSwiper,
+        HomeIcons,
+        HomeLocation,
+        HomeActivity,
+        HomeHot,
+        HomeLike,
+        HomeVacation
+    },
+    data() {
+        return {
+            swiperList: [],
+            hotList: [],
+            iconsList: [],
+            likeList: [],
+            vacationList: [],
+        }
+    },
+    mounted() {
+        this.$http.get("http://localhost:8300/static/mock/dataHome.json")
+            .then((res) => {
+                const data = res.data.data[0];
+                this.swiperList = data.swiperList;
+                this.hotList = data.hotList;
+                this.iconsList = data.iconsList;
+                this.likeList = data.likeList;
+                this.vacationList = data.vacationList;
+            })
+    }
+}
+</script>
+
+<style scoped>
+.home {
+    background-color: #f5f5f5;
+}
+</style>
+```
+
+接着每个子组件用props接收自己对应List,这需要五个组件对应接收
+
+```vue
+<script >
+    export default{
+       props:['swiperList'],
+        data(){
+            return{
+                swiperOption:{
+                    pagination:{
+                        el:'.swiper-pagination'
+                    },
+                    loop:true
+                }
+            }
+        }
+    }
+</script>
+```
+
+接着把img文件夹移动到static--mock文件夹下
+
+最近提交一下代码到gitee
+
+```shell
+git add .
+git commit -m '20220910 add dataHome img Change'
+git push
+```
+

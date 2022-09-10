@@ -11,7 +11,7 @@
             </div>
             <div class="like-text">
                 <div class="like-title">{{item.title}}</div>
-                <div class="like-message iconfont">&#xe62f;&#xe62f;&#xe62f;&#xe62f;&#xe62f;&nbsp;&nbsp;&nbsp;&nbsp;{{item.msg}}</div>
+                <div class="like-message iconfont">&#xe62f;&#xe62f;&#xe62f;&#xe62f;&#xe62f;&nbsp;&nbsp;&nbsp;&nbsp;{{item.msg}}条评论</div>
                 <div class="like-map">
                     <span class="like-mark">￥<b>{{item.price}}</b></span>起
                     <span class="like-item-map">{{item.map}}</span>
@@ -25,58 +25,10 @@
 
 <script>
 export default {
+    props:['likeList'],
     data() {
         return {
-            likeList: [{
-                id: "01",
-                imgUrl: require("@/assets/img/like1.jpg"),
-                title: "梦幻联邦乐园",
-                msg: "120条评论",
-                price: "280",
-                map: "西山区"
-            }, {
-                id: "02",
-                imgUrl: require("@/assets/img/like2.jpg"),
-                title: "云南民族村",
-                msg: "29246条评论",
-                price: "79",
-                map: "西山区"
-            }, {
-                id: "03",
-                imgUrl: require("@/assets/img/like3.jpg"),
-                title: "七彩云南欢乐世界",
-                msg: "23457条评论",
-                price: "198",
-                map: "晋宁县"
-            }, {
-                id: "04",
-                imgUrl: require("@/assets/img/like4.jpg"),
-                title: "七彩云南古滇精品湿地",
-                msg: "868条评论",
-                price: "185",
-                map: "晋宁县"
-            }, {
-                id: "05",
-                imgUrl: require("@/assets/img/like5.jpg"),
-                title: "七彩云南古滇温泉山庄",
-                msg: "1253条评论",
-                price: "185",
-                map: "晋宁县"
-            }, {
-                id: "06",
-                imgUrl: require("@/assets/img/like6.jpg"),
-                title: "昆明西山龙门景区",
-                msg: "5434条评论",
-                price: "75",
-                map: "西山区"
-            }, {
-                id: "07",
-                imgUrl: require("@/assets/img/like7.jpg"),
-                title: "石林",
-                msg: "18074条评论",
-                price: "0.39",
-                map: "石林彝族白族自治县"
-            }]
+            
         }
     }
 }

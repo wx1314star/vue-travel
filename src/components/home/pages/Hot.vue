@@ -20,59 +20,10 @@
 
 <script>
 export default {
+    props:['hotList'],
     data() {
         return {
-            hotList: [{
-                id: "01",
-                imgUrl: require('@/assets/img/list1.jpg'),
-                title: "云南省博物馆",
-                mark: 2.7
-            }, {
-                id: "02",
-                imgUrl: require('@/assets/img/list2.jpg'),
-                title: "云南民族村",
-                mark: 79.0
-            }, {
-                id: "03",
-                imgUrl: require('@/assets/img/list3.jpg'),
-                title: "昆明融创海世界",
-                mark: 180.0
-            }, {
-                id: "04",
-                imgUrl: require('@/assets/img/list4.jpg'),
-                title: "石林",
-                mark: 0.4
-            }, {
-                id: "05",
-                imgUrl: require('@/assets/img/list5.jpg'),
-                title: "七彩云南欢乐世界",
-                mark: 198
-            }, {
-                id: "06",
-                imgUrl: require('@/assets/img/list6.jpg'),
-                title: "云南野生动物园",
-                mark: 100
-            }, {
-                id: "07",
-                imgUrl: require('@/assets/img/list7.jpg'),
-                title: "昆明西山龙门景区",
-                mark: 75.0
-            }, {
-                id: "08",
-                imgUrl: require('@/assets/img/list8.jpg'),
-                title: "九乡风景名胜区",
-                mark: 0.9
-            }, {
-                id: "09",
-                imgUrl: require('@/assets/img/list9.jpg'),
-                title: "滇池",
-                mark: 89.0
-            }, {
-                id: "10",
-                imgUrl: require('@/assets/img/list10.jpg'),
-                title: "昆明动物园",
-                mark: 20.0
-            }, ]
+            
         }
     }
 }
