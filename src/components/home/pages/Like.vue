@@ -1,7 +1,7 @@
 <template>
 <div class="like">
     <div class="like-top">
-        <img src="@/assets/img/like.png" />
+        <img src="api/img/like.png" />
         猜你喜欢
     </div>
     <ul>

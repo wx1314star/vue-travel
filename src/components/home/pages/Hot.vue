@@ -1,7 +1,7 @@
 <template>
 <div class="hot">
     <div class="hot-top">
-        <img src="@/assets/img/hot.png" />
+        <img src="api/img/hot.png" />
         <span class="hot-title-left">本周热门榜单</span>
         <span class="iconfont hot-title-right">全部榜单&#xe62d;</span>
     </div>

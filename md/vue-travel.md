@@ -2054,3 +2054,168 @@ git commit -m '20220910 add dataHome img Change'
 git push
 ```
 
+###### 十八、处理接口路径以及设置代理
+
+Activity.vue有引入的@符号报错，需要加入到dataHome.json文件中
+
+```json
+,
+            "activityList":[
+                {
+                    "id":"01",
+                    "imgUrl": "api/img/ticket1.png"
+                },
+                {
+                    "id":"02",
+                    "imgUrl": "api/img/ticket2.png"
+                }
+            ]
+```
+
+然后在Home.vue中配置好
+
+```vue
+<template>
+<div class="home">
+    <home-header />
+    <home-swiper :swiperList='swiperList'/>
+    <home-icons :iconsList='iconsList'/>
+    <home-location />
+    <home-activity :activityList='activityList'/>
+    <home-hot :hotList='hotList' />
+    <home-like :likeList='likeList'/>
+    <home-vacation :vacationList='vacationList'/>
+</div>
+</template>
+
+<script>
+import HomeHeader from './pages/Header'
+import HomeSwiper from './pages/Swiper'
+import HomeIcons from './pages/Icons'
+import HomeLocation from './pages/Location'
+import HomeActivity from './pages/Activity'
+import HomeHot from './pages/Hot'
+import HomeLike from './pages/Like'
+import HomeVacation from './pages/Vacation'
+export default {
+    components: {
+        HomeHeader,
+        HomeSwiper,
+        HomeIcons,
+        HomeLocation,
+        HomeActivity,
+        HomeHot,
+        HomeLike,
+        HomeVacation
+    },
+    data() {
+        return {
+            swiperList: [],
+            hotList: [],
+            iconsList: [],
+            likeList: [],
+            vacationList: [],
+            activityList:[],
+        }
+    },
+    mounted() {
+
+
+        this.$http.get("/api/dataHome.json")
+            .then((res) => {
+                const data = res.data.data[0];
+                this.swiperList = data.swiperList;
+                this.hotList = data.hotList;
+                this.iconsList = data.iconsList;
+                this.likeList = data.likeList;
+                this.vacationList = data.vacationList;
+                this.activityList=data.activityList;
+            })
+    }
+}
+</script>
+
+<style scoped>
+.home {
+    background-color: #f5f5f5;
+}
+</style>
+```
+
+Activity.vue中修改
+
+```vue
+<template>
+<div class="activity border-top">
+    <div class="activity-item border-right" v-for="item in activityList" :key="item.id">
+        <img :src="item.imgUrl" />
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    props: ['activityList'],
+    data() {
+        return {
+
+        }
+    }
+}
+</script>
+
+<style scoped>
+.activity {
+    position: relative;
+    display: flex;
+    margin-top: .2rem;
+    background-color: #fff;
+}
+
+.activity>.activity-item {
+    flex: 1;
+    font-size: .28rem;
+    text-align: center;
+    /* background-color: red; */
+    line-height: 1rem;
+    height: 1.4rem;
+}
+
+.activity>.activity-item>img {
+    width: 100%;
+    height: 100%;
+}
+</style>
+```
+
+--在主配置文件config文件夹中配置index.js--
+
+```js
+proxyTable: {
+      '/api':{
+        target:"http://localhost:8300",
+        pathRewrite:{
+          '^/api':"/static/mock/"
+        }
+      }
+    },
+```
+
+```然后重启项目调试并测试```
+
+```shell
+npm run dev
+```
+
+最后页面能展示图片
+
+![image-20220910143822513](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220910143822513.png)
+
+提交代码到gitee
+
+```shell
+git add .
+git commit -m '20220910 add set proxy'
+git push
+```
+

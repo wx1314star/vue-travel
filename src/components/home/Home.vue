@@ -4,7 +4,7 @@
     <home-swiper :swiperList='swiperList'/>
     <home-icons :iconsList='iconsList'/>
     <home-location />
-    <home-activity />
+    <home-activity :activityList='activityList'/>
     <home-hot :hotList='hotList' />
     <home-like :likeList='likeList'/>
     <home-vacation :vacationList='vacationList'/>
@@ -38,10 +38,13 @@ export default {
             iconsList: [],
             likeList: [],
             vacationList: [],
+            activityList:[],
         }
     },
     mounted() {
-        this.$http.get("http://localhost:8300/static/mock/dataHome.json")
+
+
+        this.$http.get("/api/dataHome.json")
             .then((res) => {
                 const data = res.data.data[0];
                 this.swiperList = data.swiperList;
@@ -49,6 +52,7 @@ export default {
                 this.iconsList = data.iconsList;
                 this.likeList = data.likeList;
                 this.vacationList = data.vacationList;
+                this.activityList=data.activityList;
             })
     }
 }
