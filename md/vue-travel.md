@@ -2219,3 +2219,120 @@ git commit -m '20220910 add set proxy'
 git push
 ```
 
+###### 十九、创建城市组件和样式布局
+
+创建City.vue组件---components-->city下
+
+```vue
+<template>
+    <div>
+        <city-header />
+    </div>
+</template>
+
+<script>
+    import CityHeader from './pages/Header'
+    export default{
+        components:{
+            CityHeader
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+注册到路由组件 router-->index.js
+
+```vue
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from '@/components/home/Home'
+import City from '@/components/city/City'
+
+Vue.use(Router)
+
+export default new Router({
+  mode: 'history', // 去掉#，需要路由模式改为history
+  //base: '/dist/', // 这个配置也很重要，否则会出现页面空白情况
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path:'/city',
+      name:'City',
+      component:City
+    }
+  ]
+})
+```
+
+创建子组件Header.vue  city-->pages-->Header.vue(可原用原来主页的Header.vue,然后修改一部分)
+
+```vue
+<template>
+<!-- index-header -->
+<div class="header">
+    <div class="header-left" @click="toHome">
+        <span class="iconfont">
+            &#xe624;
+        </span>
+    </div>
+
+    <div class="header-title">
+        城市选择
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    methods: {
+        toHome() {
+            this.$router.push("/")
+        }
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/var.styl'
+
+.header {
+    width: 100%;
+    line-height: .88rem;
+    background: $bgColor;
+    font-size: .32rem;
+    color: $textColor;
+    position: relative;
+}
+
+.header-left {
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+    position: absolute;
+}
+
+.header-title {
+    text-align: center;
+}
+</style>
+```
+
+![image-20220910164521473](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220910164521473.png)
+
+提交代码到gitee仓库
+
+```shell
+git add .
+git commit -m '20220910 create City.vue and Header.vue'
+git push
+```
+
