@@ -3,6 +3,7 @@
     <city-header />
     <city-hot />
     <city-sort />
+    <city-list />
 </div>
 </template>
 
@@ -10,11 +11,13 @@
 import CityHeader from './pages/Header'
 import CityHot from './pages/Hot'
 import CitySort from './pages/Sort'
+import CityList from './pages/List'
 export default {
     components: {
         CityHeader,
         CityHot,
-        CitySort
+        CitySort,
+        CityList
     }
 }
 </script>
