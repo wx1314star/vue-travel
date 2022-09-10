@@ -2,8 +2,8 @@
 <div class="hot">
     <div class="hot-title">热门城市</div>
     <ul class="hot-list">
-        <li class="hot-item" v-for="(item,index) in hotList" :key="index">
-            {{item.name}}
+        <li class="hot-item" v-for="item in hotList" :key="item.id">
+            {{item.cityName}}
         </li>
     </ul>
 </div>
@@ -11,33 +11,10 @@
 
 <script>
 export default {
+    props:['hotList'],
     data() {
         return {
-            hotList: [{
-                name: "北京"
-            }, {
-                name: "上海"
-            }, {
-                name: "三亚"
-            }, {
-                name: "丽江"
-            }, {
-                name: "杭州"
-            }, {
-                name: "广州"
-            }, {
-                name: "成都"
-            }, {
-                name: "深圳"
-            }, {
-                name: "苏州"
-            }, {
-                name: "桂林"
-            }, {
-                name: "西安"
-            }, {
-                name: "厦门"
-            }]
+            
         }
     }
 }

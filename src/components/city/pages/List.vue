@@ -1,43 +1,10 @@
 <template>
 <div class="list">
-    <div>
-        <div class="list-title">A</div>
+    <div v-for="pages in cityList" :key="pages.id">
+        <div class="list-title">{{pages.title}}</div>
         <ul class="list-msg">
-            <li class="list-item">
-                阿坝藏族羌族自治区
-            </li>
-            <li class="list-item">
-                阿克苏地区
-            </li>
-            <li class="list-item">
-                阿拉尔
-            </li>
-            <li class="list-item">
-                阿拉善盟
-            </li>
-            <li class="list-item">
-                阿勒泰
-            </li>
-            <li class="list-item">
-                阿里
-            </li>
-            <li class="list-item">
-                安康
-            </li>
-            <li class="list-item">
-                安庆
-            </li>
-            <li class="list-item">
-                安顺
-            </li>
-            <li class="list-item">
-                安阳
-            </li>
-            <li class="list-item">
-                鞍山
-            </li>
-            <li class="list-item">
-                澳门
+            <li class="list-item" v-for="item,index in pages.lists" :key="index">
+                {{item}}
             </li>
         </ul>
     </div>
@@ -46,7 +13,7 @@
 
 <script>
 export default {
-
+    props: ['cityList'],
 }
 </script>
 
