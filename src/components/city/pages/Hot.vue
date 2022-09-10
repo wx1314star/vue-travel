@@ -47,7 +47,7 @@ export default {
 .hot-title {
     font-size: .26rem;
     color: #212121;
-    padding: .3rem
+    padding: .2rem .3rem;
 }
 
 .hot-list {

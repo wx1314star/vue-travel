@@ -2219,7 +2219,7 @@ git commit -m '20220910 add set proxy'
 git push
 ```
 
-###### 十九、创建城市组件和样式布局
+###### 十九、创建城市组件和样式布局(另一个城市列表父模块)
 
 创建City.vue组件---components-->city下
 
@@ -2436,3 +2436,129 @@ git commit -m '20220910 add city-hot vue'
 git push
 ```
 
+###### 二十一、字母排序组件样式布局
+
+添加一个Sort.vue组件到pages文件夹下
+
+编写Sort.vue内容
+
+```vue
+<template>
+<div class="sort">
+    <div class="sort-title">字母排序</div>
+    <ul class="sort-list">
+        <li class="sort-item" v-for="(item,index) in sortList" :key="index">
+            {{item.name}}
+        </li>
+    </ul>
+</div>
+</template>
+
+    
+    
+<script>
+export default {
+    data() {
+        return {
+            sortList: [{
+                name: "A"
+            }, {
+                name: "B"
+            }, {
+                name: "C"
+            }, {
+                name: "D"
+            }, {
+                name: "E"
+            }, {
+                name: "F"
+            }, {
+                name: "G"
+            }, {
+                name: "H"
+            }, {
+                name: "J"
+            }, {
+                name: "K"
+            }, {
+                name: "L"
+            }, {
+                name: "M"
+            }, {
+                name: "N"
+            }, {
+                name: "P"
+            }, {
+                name: "Q"
+            }, {
+                name: "R"
+            }, {
+                name: "S"
+            }, {
+                name: "T"
+            }, {
+                name: "W"
+            }, {
+                name: "X"
+            }, {
+                name: "Y"
+            }, {
+                name: "Z"
+            }]
+        }
+    }
+}
+</script>
+    
+    
+<style scoped>
+.sort-title {
+    font-size: .24rem;
+    color: #212121;
+    padding: .2rem .3rem;
+}
+
+.sort-list {
+    position: relative;
+    color: #212121;
+    background-color: #fff;
+    font-size: .28rem;
+    overflow: hidden;
+}
+
+.sort-item {
+    text-align: center;
+    height: .9rem;
+    line-height: .9rem;
+    float: left;
+    width: 16.66666%;
+
+}
+</style>
+```
+
+同时修改一下原来Header.vue中的部分css
+
+```vue
+.hot-title {
+    font-size: .26rem;
+    color: #212121;
+    padding: .2rem .3rem;
+}
+```
+
+页面效果
+
+###### ![image-20220910185732868](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220910185732868.png)
+
+提交到gitee
+
+```shell
+git add .
+git commit -m '20220910 add Sort.vue to City'
+git push
+```
+
+
+
+###### 二十二、
