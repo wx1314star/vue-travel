@@ -594,5 +594,73 @@
             "id": "12",
             "cityName": "厦门"
         }
+    ],
+    "sortList": [
+        {
+            "name": "A"
+        },
+        {
+            "name": "B"
+        },
+        {
+            "name": "C"
+        },
+        {
+            "name": "D"
+        },
+        {
+            "name": "E"
+        },
+        {
+            "name": "F"
+        },
+        {
+            "name": "G"
+        },
+        {
+            "name": "H"
+        },
+        {
+            "name": "J"
+        },
+        {
+            "name": "K"
+        },
+        {
+            "name": "L"
+        },
+        {
+            "name": "M"
+        },
+        {
+            "name": "N"
+        },
+        {
+            "name": "P"
+        },
+        {
+            "name": "Q"
+        },
+        {
+            "name": "R"
+        },
+        {
+            "name": "S"
+        },
+        {
+            "name": "T"
+        },
+        {
+            "name": "W"
+        },
+        {
+            "name": "X"
+        },
+        {
+            "name": "Y"
+        },
+        {
+            "name": "Z"
+        }
     ]
 }

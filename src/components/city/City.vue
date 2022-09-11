@@ -1,28 +1,23 @@
 <template>
 <div class="city">
     <city-header />
-    <city-hot :hotList='hotList' />
-    <city-sort />
-    <city-list :cityList='cityList' />
+    <city-list :cityList='cityList' :hotList='hotList' :sortList='sortList' />
 </div>
 </template>
 
 <script>
 import CityHeader from './pages/Header'
-import CityHot from './pages/Hot'
-import CitySort from './pages/Sort'
 import CityList from './pages/List'
 export default {
     data() {
         return {
             hotList: [],
             cityList: [],
+            sortList: [],
         }
     },
     components: {
         CityHeader,
-        CityHot,
-        CitySort,
         CityList
     },
     mounted() {
@@ -31,6 +26,7 @@ export default {
                 let data = res.data;
                 this.hotList = data.hotCityList;
                 this.cityList = data.cityList;
+                this.sortList = data.sortList;
             })
     }
 }
