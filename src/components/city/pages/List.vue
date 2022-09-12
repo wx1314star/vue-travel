@@ -15,14 +15,14 @@
         <div class="sort">
             <div class="sort-title">字母排序</div>
             <ul class="sort-list">
-                <li class="sort-item" v-for="(item,index) in sortList" :key="index">
-                    {{item.name}}
+                <li class="sort-item" v-for="(val,key) in sortList" :key="key" @click="changeSort(val.name)">
+                    {{val.name}}
                 </li>
             </ul>
         </div>
         <!-- list -->
         <div class="list">
-            <div v-for="pages in cityList" :key="pages.id">
+            <div v-for="pages in cityList" :key="pages.id" :ref="pages.title">
                 <div class="list-title">{{pages.title}}</div>
                 <ul class="list-msg">
                     <li class="list-item" v-for="item,index in pages.lists" :key="index">
@@ -47,6 +47,15 @@ export default {
     mounted() {
         let container = this.$refs['container'];
         this.bs = new BScroll(container)
+    },
+    methods: {
+        // 点击字母跳到指定位置
+        changeSort(sortName) {
+            // https://better-scroll.github.io/docs-v1/doc/zh-hans/api.html
+            // scrollToElement(el, time, offsetX, offsetY, easing)
+            // 滚动到指定的目标元素 
+            this.bs.scrollToElement(this.$refs[sortName][0])
+        },
     }
 }
 </script>
