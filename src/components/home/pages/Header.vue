@@ -14,15 +14,20 @@
     </div>
     <div class="header-right">
         <router-link to="/city">
-            昆明<span class="iconfont">&#xe600;</span>
+            {{city}}<span class="iconfont">&#xe600;</span>
         </router-link>
     </div>
 </div>
 </template>
 
 <script>
+import {
+    mapState
+} from 'vuex'
 export default {
-
+    computed: {
+        ...mapState(['city'])
+    }
 }
 </script>
 

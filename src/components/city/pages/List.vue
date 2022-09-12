@@ -6,7 +6,7 @@
         <div class="hot">
             <div class="hot-title">热门城市</div>
             <ul class="hot-list">
-                <li class="hot-item" v-for="item in hotList" :key="item.id">
+                <li class="hot-item" v-for="item in hotList" :key="item.id" @click="changeCityName(item.cityName)">
                     {{item.cityName}}
                 </li>
             </ul>
@@ -25,8 +25,8 @@
             <div v-for="pages in cityList" :key="pages.id" :ref="pages.title">
                 <div class="list-title">{{pages.title}}</div>
                 <ul class="list-msg">
-                    <li class="list-item" v-for="item,index in pages.lists" :key="index">
-                        {{item}}
+                    <li class="list-item" v-for="cityName,index in pages.lists" :key="index" @click="changeCityName(cityName)">
+                        {{cityName}}
                     </li>
                 </ul>
             </div>
@@ -36,6 +36,9 @@
 </template>
 
 <script>
+import {
+    mapMutations
+} from 'vuex';
 import BScroll from 'better-scroll'
 export default {
     props: ['cityList', 'hotList', 'sortList'],
@@ -56,6 +59,11 @@ export default {
             // 滚动到指定的目标元素 
             this.bs.scrollToElement(this.$refs[sortName][0])
         },
+        changeCityName(cityName) {
+            this.changeCity(cityName);
+            this.$router.push('/')
+        },
+        ...mapMutations(['changeCity'])
     }
 }
 </script>
@@ -90,21 +98,22 @@ export default {
     position: absolute;
     height: 100%;
     width: 25%;
-    left: 25%;
-    border-left: .02rem solid #ddd;
-    border-right: .02rem solid #ddd;
+    left: 74.7%;
+    /* border-left: 0.02rem solid #ddd; */
+    border-right: 0.02rem solid #ddd;
 }
 
 .list-msg ::after {
     content: "";
     position: absolute;
     height: 100%;
-    width: 25%;
+    width: 0%;
     left: 75%;
-    border-left: .02rem solid #ddd;
+    //border-left: .02rem solid #ddd;
 }
 
 .list-item {
+    position: relative;
     font-size: .28rem;
     text-align: center;
     line-height: .9rem;
@@ -133,18 +142,19 @@ export default {
     content: "";
     position: absolute;
     height: 100%;
-    width: 33.33333%;
-    left: 33.33333%;
-    border-left: .02rem solid #ddd;
-    border-right: .02rem solid #ddd;
+    /* width: 100%; */
+    left: 100%;
+    /* border-left: 0.02rem solid #ddd; */
+    border-right: 0.02rem solid #ddd;
 }
 
 .hot-item {
-    text-align: center;
-    height: .9rem;
-    line-height: .9rem;
-    float: left;
+    position: relative;
     width: 33.33333%;
+    text-align: center;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    float: left;
     border-bottom: .02rem solid #ddd;
 }
 

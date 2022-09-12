@@ -4726,3 +4726,351 @@ git commit -m '20220912 add scroll to location'
 git push
 ```
 
+###### 二十六、Vuex城市名数据共享
+
+点击城市列表里内容，返回首页时首页顶部位置显示刚才点击的内容
+
+首先需要安装vuex
+
+```shell
+npm install vuex@2.5.0 --save
+```
+
+接着在src文件夹下新建store文件夹，创建文件index.js
+
+然后在主main.js里引入vuex
+
+```js
+//vuex
+import store from './store/index'
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  store,
+  components: { App },
+  template: '<App/>'
+})
+```
+
+编写src==>store里index.js内容
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const state = {
+    city: "昆明"
+}
+
+export default new Vuex.Store({
+    state
+})
+```
+
+接着修改home==>pages==>Header.vue内容
+
+```vue
+<template>
+<!-- index-header -->
+<div class="header">
+    <div class="header-left">
+        <span class="iconfont">
+            &#xe624;
+        </span>
+    </div>
+    <div class="header-search">
+        <span class="iconfont">
+            &#xe632;
+        </span>
+        输入城市/景点/游玩主题
+    </div>
+    <div class="header-right">
+        <router-link to="/city">
+            {{city}}<span class="iconfont">&#xe600;</span>
+        </router-link>
+    </div>
+</div>
+</template>
+
+<script>
+import {
+    mapState
+} from 'vuex'
+export default {
+    computed: {
+        ...mapState(['city'])
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/var.styl'
+
+.header {
+    width: 100%;
+    line-height: .88rem;
+    background: $bgColor;
+    font-size: .36rem;
+    color: $textColor;
+    display: flex;
+}
+
+.header-left {
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.header-search {
+    flex: 1;
+    background: #fff;
+    height: .6rem;
+    margin: .14rem 0;
+    border-radius: .1rem;
+    color: #e4e7ea;
+    line-height: .6rem;
+    font-size: .28rem;
+    padding-left: .2rem;
+}
+
+.header-right {
+    font-size: .28rem;
+    padding: 0 .2rem;
+}
+
+.header-right a {
+    color: #fff;
+}
+</style>
+```
+
+页面能展示默认的地址了
+
+![image-20220912100415531](/Users/wx/Documents/gitee/vue-travel/md/assets/image-20220912100415531.png)
+
+接着继续修改store-->index.js
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const state = {
+    city: "昆明"
+}
+
+const mutations = {
+    changeCity(state,cityName){
+        state.city=cityName;
+    }
+}
+
+export default new Vuex.Store({
+    state,
+    mutations
+})
+```
+
+修改List.vue加入
+
+```vue
+<template>
+<!-- better-scroll -->
+<div ref="container" class="container">
+    <div>
+        <!-- hot -->
+        <div class="hot">
+            <div class="hot-title">热门城市</div>
+            <ul class="hot-list">
+                <li class="hot-item" v-for="item in hotList" :key="item.id" @click="changeCityName(item.cityName)">
+                    {{item.cityName}}
+                </li>
+            </ul>
+        </div>
+        <!-- sort -->
+        <div class="sort">
+            <div class="sort-title">字母排序</div>
+            <ul class="sort-list">
+                <li class="sort-item" v-for="(val,key) in sortList" :key="key" @click="changeSort(val.name)">
+                    {{val.name}}
+                </li>
+            </ul>
+        </div>
+        <!-- list -->
+        <div class="list">
+            <div v-for="pages in cityList" :key="pages.id" :ref="pages.title">
+                <div class="list-title">{{pages.title}}</div>
+                <ul class="list-msg">
+                    <li class="list-item" v-for="cityName,index in pages.lists" :key="index" @click="changeCityName(cityName)">
+                        {{cityName}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</template>
+
+<script>
+import {
+    mapMutations
+} from 'vuex';
+import BScroll from 'better-scroll'
+export default {
+    props: ['cityList', 'hotList', 'sortList'],
+    data() {
+        return {
+            bs: ''
+        }
+    },
+    mounted() {
+        let container = this.$refs['container'];
+        this.bs = new BScroll(container)
+    },
+    methods: {
+        // 点击字母跳到指定位置
+        changeSort(sortName) {
+            // https://better-scroll.github.io/docs-v1/doc/zh-hans/api.html
+            // scrollToElement(el, time, offsetX, offsetY, easing)
+            // 滚动到指定的目标元素 
+            this.bs.scrollToElement(this.$refs[sortName][0])
+        },
+        changeCityName(cityName) {
+            this.changeCity(cityName);
+            this.$router.push('/')
+        },
+        ...mapMutations(['changeCity'])
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/common.styl'
+
+.container {
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: .88rem;
+    background-color: #f5f5f5;
+}
+
+.list-title {
+    font-size: .24rem;
+    color: #212121;
+    padding: .2rem .3rem;
+}
+
+.list-msg {
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.list-msg ::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 25%;
+    left: 74.7%;
+    /* border-left: 0.02rem solid #ddd; */
+    border-right: 0.02rem solid #ddd;
+}
+
+.list-msg ::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    left: 75%;
+    //border-left: .02rem solid #ddd;
+}
+
+.list-item {
+    position: relative;
+    font-size: .28rem;
+    text-align: center;
+    line-height: .9rem;
+    float: left;
+    width: 25%;
+    border-bottom: .02rem solid #ddd;
+    textOverflow();
+}
+
+// hot 
+.hot-title {
+    font-size: .26rem;
+    color: #212121;
+    padding: .2rem .3rem;
+}
+
+.hot-list {
+    position: relative;
+    color: #212121;
+    background-color: #fff;
+    font-size: .28rem;
+    overflow: hidden;
+}
+
+.hot-list ::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    /* width: 100%; */
+    left: 100%;
+    /* border-left: 0.02rem solid #ddd; */
+    border-right: 0.02rem solid #ddd;
+}
+
+.hot-item {
+    position: relative;
+    width: 33.33333%;
+    text-align: center;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    float: left;
+    border-bottom: .02rem solid #ddd;
+}
+
+// sort
+.sort-title {
+    font-size: .24rem;
+    color: #212121;
+    padding: .2rem .3rem;
+}
+
+.sort-list {
+    position: relative;
+    color: #212121;
+    background-color: #fff;
+    font-size: .28rem;
+    overflow: hidden;
+}
+
+.sort-item {
+    text-align: center;
+    height: .9rem;
+    line-height: .9rem;
+    float: left;
+    width: 16.66666%;
+
+}
+</style>
+```
+
+提交到gitee
+
+```shell
+git add .
+git commit -m '20220912 add vuex'
+git push
+```
+
