@@ -45,7 +45,7 @@
                 {
                     "id": "06",
                     "imgUrl": "api/img/icon6.png",
-                    "title": "故宫"
+                    "title": "博物馆"
                 },
                 {
                     "id": "07",
@@ -220,19 +220,247 @@
                     "msg": "带不走的云彩，带走的花儿"
                 }
             ],
-            "activityList":[
+            "activityList": [
                 {
-                    "id":"01",
+                    "id": "01",
                     "imgUrl": "api/img/ticket1.png"
                 },
                 {
-                    "id":"02",
+                    "id": "02",
                     "imgUrl": "api/img/ticket2.png"
                 }
             ]
         },
         {
-            "city": "北京"
+            "city": "北京",
+            "swiperList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/swiper1.jpg"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/swiper2.jpg"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/swiper3.jpg"
+                }
+            ],
+            "iconsList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/icon1.png",
+                    "title": "景点门票"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/icon2.png",
+                    "title": "北京必游"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/icon3.png",
+                    "title": "夏日玩水"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/icon4.png",
+                    "title": "主题乐园"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/icon5.png",
+                    "title": "动植物园"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/icon6.png",
+                    "title": "故宫"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/icon7.png",
+                    "title": "一日游"
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/icon8.png",
+                    "title": "公园"
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/icon9.png",
+                    "title": "游乐场"
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/icon10.png",
+                    "title": "全部玩乐"
+                }
+            ],
+            "hotList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/list1.jpg",
+                    "title": "北京博物馆",
+                    "mark": 2.7
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/list2.jpg",
+                    "title": "云南民族村",
+                    "mark": 79.0
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/list3.jpg",
+                    "title": "昆明融创海世界",
+                    "mark": 180.0
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/list4.jpg",
+                    "title": "石林",
+                    "mark": 0.4
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/list5.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "mark": 198
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/list6.jpg",
+                    "title": "云南野生动物园",
+                    "mark": 100
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/list7.jpg",
+                    "title": "昆明西山龙门景区",
+                    "mark": 75.0
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/list8.jpg",
+                    "title": "九乡风景名胜区",
+                    "mark": 0.9
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/list9.jpg",
+                    "title": "滇池",
+                    "mark": 89.0
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/list10.jpg",
+                    "title": "昆明动物园",
+                    "mark": 20.0
+                }
+            ],
+            "likeList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/like1.jpg",
+                    "title": "梦幻联邦乐园",
+                    "msg": "120",
+                    "price": "280",
+                    "map": "西山区"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/like2.jpg",
+                    "title": "云南民族村",
+                    "msg": "29246",
+                    "price": "79",
+                    "map": "西山区"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/like3.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "msg": "23457",
+                    "price": "198",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/like4.jpg",
+                    "title": "七彩云南古滇精品湿地",
+                    "msg": "868",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/like5.jpg",
+                    "title": "七彩云南古滇温泉山庄",
+                    "msg": "1253",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/like6.jpg",
+                    "title": "昆明西山龙门景区",
+                    "msg": "5434",
+                    "price": "75",
+                    "map": "西山区"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/like7.jpg",
+                    "title": "石林",
+                    "msg": "18074",
+                    "price": "0.39",
+                    "map": "石林彝族白族自治县"
+                }
+            ],
+            "vacationList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/where1.jpg",
+                    "title": "昆明必打卡",
+                    "msg": "走进春城，感受彩云之南"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/where2.jpg",
+                    "title": "带娃出行",
+                    "msg": "宝贝们好喜欢这里哦"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/where3.jpg",
+                    "title": "本地人在这玩",
+                    "msg": "四季如春的城市，浪漫色彩浓厚的城市，多民族融合的城市"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/where4.jpg",
+                    "title": "昆明公园游",
+                    "msg": "到昆明，游公园，跑跑步"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/where5.jpg",
+                    "title": "买花一日游",
+                    "msg": "带不走的云彩，带走的花儿"
+                }
+            ],
+            "activityList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/ticket1.png"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/ticket2.png"
+                }
+            ]
         }
     ]
 }

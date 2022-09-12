@@ -3,13 +3,17 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+let defaultCity = '昆明';
+defaultCity = localStorage.city;
+
 const state = {
-    city: "昆明"
+    city: defaultCity
 }
 
 const mutations = {
-    changeCity(state,cityName){
-        state.city=cityName;
+    changeCity(state, cityName) {
+        state.city = cityName;
+        localStorage.city = cityName;
     }
 }
 

@@ -4771,7 +4771,7 @@ export default new Vuex.Store({
 })
 ```
 
-接着修改home==>pages==>Header.vue内容
+接着修改home=>pages=>Header.vue内容
 
 ```vue
 <template>
@@ -5073,4 +5073,608 @@ git add .
 git commit -m '20220912 add vuex'
 git push
 ```
+
+###### 二十七、本地存储到首页城市名称
+
+添加到本地的localStorage对象中存储点击后的城市名称
+
+修改src=>store=>index.js内容
+
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+let defaultCity = '昆明';
+defaultCity = localStorage.city;
+
+const state = {
+    city: defaultCity
+}
+
+const mutations = {
+    changeCity(state, cityName) {
+        state.city = cityName;
+        localStorage.city = cityName;
+    }
+}
+
+export default new Vuex.Store({
+    state,
+    mutations
+})
+```
+
+刷新后也保存上次选择的城市名称
+
+###### 二十八、修正首页正确显示区域内容
+
+首先mock文件夹里的dataHome.json数据，原来最底下北京，复制一下上面昆明的数据加到下面，然后修改一下个别文字和图片内容
+
+```json
+{
+    "data": [
+        {
+            "city": "昆明",
+            "swiperList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/swiper1.jpg"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/swiper2.jpg"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/swiper3.jpg"
+                }
+            ],
+            "iconsList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/icon1.png",
+                    "title": "景点门票"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/icon2.png",
+                    "title": "必游榜单"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/icon3.png",
+                    "title": "夏日玩水"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/icon4.png",
+                    "title": "主题乐园"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/icon5.png",
+                    "title": "动植物园"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/icon6.png",
+                    "title": "博物馆"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/icon7.png",
+                    "title": "一日游"
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/icon8.png",
+                    "title": "公园"
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/icon9.png",
+                    "title": "游乐场"
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/icon10.png",
+                    "title": "全部玩乐"
+                }
+            ],
+            "hotList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/list1.jpg",
+                    "title": "云南省博物馆",
+                    "mark": 2.7
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/list2.jpg",
+                    "title": "云南民族村",
+                    "mark": 79.0
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/list3.jpg",
+                    "title": "昆明融创海世界",
+                    "mark": 180.0
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/list4.jpg",
+                    "title": "石林",
+                    "mark": 0.4
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/list5.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "mark": 198
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/list6.jpg",
+                    "title": "云南野生动物园",
+                    "mark": 100
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/list7.jpg",
+                    "title": "昆明西山龙门景区",
+                    "mark": 75.0
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/list8.jpg",
+                    "title": "九乡风景名胜区",
+                    "mark": 0.9
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/list9.jpg",
+                    "title": "滇池",
+                    "mark": 89.0
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/list10.jpg",
+                    "title": "昆明动物园",
+                    "mark": 20.0
+                }
+            ],
+            "likeList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/like1.jpg",
+                    "title": "梦幻联邦乐园",
+                    "msg": "120",
+                    "price": "280",
+                    "map": "西山区"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/like2.jpg",
+                    "title": "云南民族村",
+                    "msg": "29246",
+                    "price": "79",
+                    "map": "西山区"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/like3.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "msg": "23457",
+                    "price": "198",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/like4.jpg",
+                    "title": "七彩云南古滇精品湿地",
+                    "msg": "868",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/like5.jpg",
+                    "title": "七彩云南古滇温泉山庄",
+                    "msg": "1253",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/like6.jpg",
+                    "title": "昆明西山龙门景区",
+                    "msg": "5434",
+                    "price": "75",
+                    "map": "西山区"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/like7.jpg",
+                    "title": "石林",
+                    "msg": "18074",
+                    "price": "0.39",
+                    "map": "石林彝族白族自治县"
+                }
+            ],
+            "vacationList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/where1.jpg",
+                    "title": "昆明必打卡",
+                    "msg": "走进春城，感受彩云之南"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/where2.jpg",
+                    "title": "带娃出行",
+                    "msg": "宝贝们好喜欢这里哦"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/where3.jpg",
+                    "title": "本地人在这玩",
+                    "msg": "四季如春的城市，浪漫色彩浓厚的城市，多民族融合的城市"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/where4.jpg",
+                    "title": "昆明公园游",
+                    "msg": "到昆明，游公园，跑跑步"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/where5.jpg",
+                    "title": "买花一日游",
+                    "msg": "带不走的云彩，带走的花儿"
+                }
+            ],
+            "activityList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/ticket1.png"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/ticket2.png"
+                }
+            ]
+        },
+        {
+            "city": "北京",
+            "swiperList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/swiper1.jpg"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/swiper2.jpg"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/swiper3.jpg"
+                }
+            ],
+            "iconsList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/icon1.png",
+                    "title": "景点门票"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/icon2.png",
+                    "title": "北京必游"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/icon3.png",
+                    "title": "夏日玩水"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/icon4.png",
+                    "title": "主题乐园"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/icon5.png",
+                    "title": "动植物园"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/icon6.png",
+                    "title": "故宫"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/icon7.png",
+                    "title": "一日游"
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/icon8.png",
+                    "title": "公园"
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/icon9.png",
+                    "title": "游乐场"
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/icon10.png",
+                    "title": "全部玩乐"
+                }
+            ],
+            "hotList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/list1.jpg",
+                    "title": "北京博物馆",
+                    "mark": 2.7
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/list2.jpg",
+                    "title": "云南民族村",
+                    "mark": 79.0
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/list3.jpg",
+                    "title": "昆明融创海世界",
+                    "mark": 180.0
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/list4.jpg",
+                    "title": "石林",
+                    "mark": 0.4
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/list5.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "mark": 198
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/list6.jpg",
+                    "title": "云南野生动物园",
+                    "mark": 100
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/list7.jpg",
+                    "title": "昆明西山龙门景区",
+                    "mark": 75.0
+                },
+                {
+                    "id": "08",
+                    "imgUrl": "api/img/list8.jpg",
+                    "title": "九乡风景名胜区",
+                    "mark": 0.9
+                },
+                {
+                    "id": "09",
+                    "imgUrl": "api/img/list9.jpg",
+                    "title": "滇池",
+                    "mark": 89.0
+                },
+                {
+                    "id": "10",
+                    "imgUrl": "api/img/list10.jpg",
+                    "title": "昆明动物园",
+                    "mark": 20.0
+                }
+            ],
+            "likeList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/like1.jpg",
+                    "title": "梦幻联邦乐园",
+                    "msg": "120",
+                    "price": "280",
+                    "map": "西山区"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/like2.jpg",
+                    "title": "云南民族村",
+                    "msg": "29246",
+                    "price": "79",
+                    "map": "西山区"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/like3.jpg",
+                    "title": "七彩云南欢乐世界",
+                    "msg": "23457",
+                    "price": "198",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/like4.jpg",
+                    "title": "七彩云南古滇精品湿地",
+                    "msg": "868",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/like5.jpg",
+                    "title": "七彩云南古滇温泉山庄",
+                    "msg": "1253",
+                    "price": "185",
+                    "map": "晋宁县"
+                },
+                {
+                    "id": "06",
+                    "imgUrl": "api/img/like6.jpg",
+                    "title": "昆明西山龙门景区",
+                    "msg": "5434",
+                    "price": "75",
+                    "map": "西山区"
+                },
+                {
+                    "id": "07",
+                    "imgUrl": "api/img/like7.jpg",
+                    "title": "石林",
+                    "msg": "18074",
+                    "price": "0.39",
+                    "map": "石林彝族白族自治县"
+                }
+            ],
+            "vacationList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/where1.jpg",
+                    "title": "昆明必打卡",
+                    "msg": "走进春城，感受彩云之南"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/where2.jpg",
+                    "title": "带娃出行",
+                    "msg": "宝贝们好喜欢这里哦"
+                },
+                {
+                    "id": "03",
+                    "imgUrl": "api/img/where3.jpg",
+                    "title": "本地人在这玩",
+                    "msg": "四季如春的城市，浪漫色彩浓厚的城市，多民族融合的城市"
+                },
+                {
+                    "id": "04",
+                    "imgUrl": "api/img/where4.jpg",
+                    "title": "昆明公园游",
+                    "msg": "到昆明，游公园，跑跑步"
+                },
+                {
+                    "id": "05",
+                    "imgUrl": "api/img/where5.jpg",
+                    "title": "买花一日游",
+                    "msg": "带不走的云彩，带走的花儿"
+                }
+            ],
+            "activityList": [
+                {
+                    "id": "01",
+                    "imgUrl": "api/img/ticket1.png"
+                },
+                {
+                    "id": "02",
+                    "imgUrl": "api/img/ticket2.png"
+                }
+            ]
+        }
+    ]
+}
+```
+
+接着修改首页Home.vue中内容
+
+```vue
+<template>
+<div class="home">
+    <home-header />
+    <home-swiper :swiperList='swiperList' />
+    <home-icons :iconsList='iconsList' />
+    <home-location />
+    <home-activity :activityList='activityList' />
+    <home-hot :hotList='hotList' />
+    <home-like :likeList='likeList' />
+    <home-vacation :vacationList='vacationList' />
+</div>
+</template>
+
+<script>
+import {
+    mapState
+} from 'vuex'
+import HomeHeader from './pages/Header'
+import HomeSwiper from './pages/Swiper'
+import HomeIcons from './pages/Icons'
+import HomeLocation from './pages/Location'
+import HomeActivity from './pages/Activity'
+import HomeHot from './pages/Hot'
+import HomeLike from './pages/Like'
+import HomeVacation from './pages/Vacation'
+export default {
+    components: {
+        HomeHeader,
+        HomeSwiper,
+        HomeIcons,
+        HomeLocation,
+        HomeActivity,
+        HomeHot,
+        HomeLike,
+        HomeVacation
+    },
+    data() {
+        return {
+            swiperList: [],
+            hotList: [],
+            iconsList: [],
+            likeList: [],
+            vacationList: [],
+            activityList: [],
+        }
+    },
+    computed: {
+        ...mapState(['city'])
+    },
+    methods: {
+        getHttp() {
+            this.$http.get("/api/dataHome.json")
+                .then((res) => {
+                    const dataList = res.data.data;
+                    dataList.forEach((data, index) => {
+                        if (data.city == this.city) {
+                            this.swiperList = data.swiperList;
+                            this.hotList = data.hotList;
+                            this.iconsList = data.iconsList;
+                            this.likeList = data.likeList;
+                            this.vacationList = data.vacationList;
+                            this.activityList = data.activityList;
+                        }
+                    });
+                })
+        },
+    },
+    mounted() {
+        this.getHttp();
+    }
+}
+</script>
+
+<style scoped>
+.home {
+    background-color: #f5f5f5;
+}
+</style>
+```
+
+这样就可以根据昆明和北京选择不同的数据和图片了
+
+选择其它地方没有数据不显示，因为没有添加
+
+提交到gitee仓库
+
+```shell
+git add .
+git commit -m '20220912 add dataHome.json edit Home.vue'
+git push
+```
+
+###### 二十九、keep-alive请求优化
 
