@@ -42,6 +42,7 @@ export default {
             likeList: [],
             vacationList: [],
             activityList: [],
+            chanageCity: ''
         }
     },
     computed: {
@@ -66,7 +67,15 @@ export default {
         },
     },
     mounted() {
+        this.chanageCity = this.city;
         this.getHttp();
+    },
+    activated() {
+        // 城市更改时，重新请求数据并绑定城市名称
+        if (this.chanageCity != this.city) {
+            this.getHttp();
+            this.chanageCity = this.city;
+        }
     }
 }
 </script>

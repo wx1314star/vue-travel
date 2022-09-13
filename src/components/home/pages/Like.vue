@@ -5,7 +5,7 @@
         猜你喜欢
     </div>
     <ul>
-        <li class="like-item border-bottom" v-for="item in likeList" :key="item.id">
+        <li class="like-item border-bottom" v-for="item in likeList" :key="item.id" @click="toDetails()">
             <div class="like-img">
                 <img :src="item.imgUrl" />
             </div>
@@ -18,19 +18,23 @@
                 </div>
             </div>
         </li>
-
     </ul>
 </div>
 </template>
 
 <script>
 export default {
-    props:['likeList'],
+    props: ['likeList'],
     data() {
         return {
-            
+
         }
-    }
+    },
+    methods: {
+        toDetails() {
+            this.$router.push("/detail")
+        }
+    },
 }
 </script>
 
@@ -73,7 +77,7 @@ export default {
 .like-text {
     overflow: hidden;
     padding-left: .22rem;
-    
+
 }
 
 .like-title {
@@ -108,7 +112,7 @@ export default {
     right: 0;
     font-size: .28rem;
     top: .1rem;
-    width:1rem;
+    width: 1rem;
     textOverflow();
 }
 </style>

@@ -5678,3 +5678,413 @@ git push
 
 ###### 二十九、keep-alive请求优化
 
+修改主App.vue加入keep-alive标签
+
+```vue
+<template>
+<div id="app">
+
+    <keep-alive>
+        <router-view />
+    </keep-alive>
+
+</div>
+</template>
+
+<script>
+export default {
+    name: 'App'
+}
+</script>
+```
+
+在首页组件Home.vue中加入keep-alive的判断
+
+```vue
+<template>
+<div class="home">
+    <home-header />
+    <home-swiper :swiperList='swiperList' />
+    <home-icons :iconsList='iconsList' />
+    <home-location />
+    <home-activity :activityList='activityList' />
+    <home-hot :hotList='hotList' />
+    <home-like :likeList='likeList' />
+    <home-vacation :vacationList='vacationList' />
+</div>
+</template>
+
+<script>
+import {
+    mapState
+} from 'vuex'
+import HomeHeader from './pages/Header'
+import HomeSwiper from './pages/Swiper'
+import HomeIcons from './pages/Icons'
+import HomeLocation from './pages/Location'
+import HomeActivity from './pages/Activity'
+import HomeHot from './pages/Hot'
+import HomeLike from './pages/Like'
+import HomeVacation from './pages/Vacation'
+export default {
+    components: {
+        HomeHeader,
+        HomeSwiper,
+        HomeIcons,
+        HomeLocation,
+        HomeActivity,
+        HomeHot,
+        HomeLike,
+        HomeVacation
+    },
+    data() {
+        return {
+            swiperList: [],
+            hotList: [],
+            iconsList: [],
+            likeList: [],
+            vacationList: [],
+            activityList: [],
+            chanageCity: ''
+        }
+    },
+    computed: {
+        ...mapState(['city'])
+    },
+    methods: {
+        getHttp() {
+            this.$http.get("/api/dataHome.json")
+                .then((res) => {
+                    const dataList = res.data.data;
+                    dataList.forEach((data, index) => {
+                        if (data.city == this.city) {
+                            this.swiperList = data.swiperList;
+                            this.hotList = data.hotList;
+                            this.iconsList = data.iconsList;
+                            this.likeList = data.likeList;
+                            this.vacationList = data.vacationList;
+                            this.activityList = data.activityList;
+                        }
+                    });
+                })
+        },
+    },
+    mounted() {
+        this.chanageCity = this.city;
+        this.getHttp();
+    },
+    activated() {
+        // 城市更改时，重新请求数据并绑定城市名称
+        if (this.chanageCity != this.city) {
+            this.getHttp();
+            this.chanageCity = this.city;
+        }
+    }
+}
+</script>
+
+<style scoped>
+.home {
+    background-color: #f5f5f5;
+}
+</style>
+```
+
+查看浏览器网络可以看到dataHome.json的请求，更换城市后重新请求，直接返回原城市不请求
+
+###### 三十、[详情页]组件划分
+
+components下创建一个文件夹details,创建Detail.vue页面
+
+```vue
+<template>
+    <div>
+        Details
+    </div>
+</template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style scoped>
+
+</style>
+```
+
+在router文件夹下修改index.js加入Detail.vue
+
+```js
+import Vue from 'vue'
+import Router from 'vue-router'
+import Home from '@/components/home/Home'
+import City from '@/components/city/City'
+import Detail from '@/components/details/Detail'
+
+Vue.use(Router)
+
+export default new Router({
+  mode: 'history', // 去掉#，需要路由模式改为history
+  //base: '/dist/', // 这个配置也很重要，否则会出现页面空白情况
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/city',
+      name: 'City',
+      component: City
+    },
+    {
+      path: '/detail',
+      name: 'Detail',
+      component: Detail
+    }
+  ]
+})
+```
+
+在猜你喜欢组件添加点击跳转事件home=>pages=>Like.vue中
+
+```vue
+<template>
+<div class="like">
+    <div class="like-top">
+        <img src="api/img/like.png" />
+        猜你喜欢
+    </div>
+    <ul>
+        <li class="like-item border-bottom" v-for="item in likeList" :key="item.id" @click="toDetails()">
+            <div class="like-img">
+                <img :src="item.imgUrl" />
+            </div>
+            <div class="like-text">
+                <div class="like-title">{{item.title}}</div>
+                <div class="like-message iconfont">&#xe62f;&#xe62f;&#xe62f;&#xe62f;&#xe62f;&nbsp;&nbsp;&nbsp;&nbsp;{{item.msg}}条评论</div>
+                <div class="like-map">
+                    <span class="like-mark">￥<b>{{item.price}}</b></span>起
+                    <span class="like-item-map">{{item.map}}</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</template>
+
+<script>
+export default {
+    props: ['likeList'],
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        toDetails() {
+            this.$router.push("/detail")
+        }
+    },
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/common.styl'
+
+.like {
+    margin-top: .2rem;
+    font-size: .28rem;
+    background-color: #fff;
+    padding: 0 .2rem;
+}
+
+.like-top {
+    padding: .2rem 0;
+    font-size: .32rem;
+}
+
+.like-top img {
+    width: .3rem;
+    height: .3rem;
+}
+
+.like-item {
+    position: relative;
+    padding: .2rem 0;
+    overflow: hidden;
+}
+
+.like-img {
+    float: left;
+    overflow: hidden;
+}
+
+.like-img img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.like-text {
+    overflow: hidden;
+    padding-left: .22rem;
+
+}
+
+.like-title {
+    font-size: .36rem;
+    color: #212121;
+    margin-top: .4rem;
+}
+
+.like-message {
+    margin-top: .3rem;
+    color: #616161;
+    font-size: .24rem;
+}
+
+.like-map {
+    margin-top: .3rem;
+    color: #616161;
+    position: relative;
+}
+
+.like-mark {
+    color: #ff8300;
+}
+
+.like-mark b {
+    font-size: .4rem;
+}
+
+// 加入微调文字
+.like-item-map {
+    position: absolute;
+    right: 0;
+    font-size: .28rem;
+    top: .1rem;
+    width: 1rem;
+    textOverflow();
+}
+</style>
+```
+
+接着创建components=>details=>pages文件夹，创建Banner.vue和Header.vue
+
+然后Detail.vue父组件先引入Banner.vue子组件
+
+```vue
+<template>
+<div>
+    <detail-banner />
+</div>
+</template>
+
+<script>
+import DetailBanner from './pages/Banner'
+export default {
+    components: {
+        DetailBanner
+    }
+}
+</script>
+
+<style scoped>
+
+</style>
+```
+
+###### 三十一、banner样式组件布局
+
+编写Banner.vue组件内容
+
+点击图片进入Swiper页面，点击黑色部分返回图片内容
+
+```vue
+<template>
+<div class="banner">
+
+    <div @click="showSwiper">
+        <div class="banner-img">
+            <img src="/api/img/like1.jpg" />
+        </div>
+        <div class="banner-title">
+            野鸭湖风景区(AAAA景区)
+        </div>
+    </div>
+
+    <div class="img-swiper" v-show="imgSwiper" @click="hideSwiper">
+        <img src="/api/img/like1.jpg" />
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            imgSwiper: false
+        }
+    },
+    methods: {
+        showSwiper() {
+            this.imgSwiper = true;
+        },
+        hideSwiper() {
+            this.imgSwiper = false;
+        }
+    }
+}
+</script>
+
+<style scoped>
+.banner {
+    position: relative;
+}
+
+.banner-img {
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 55%;
+}
+
+.banner-img img {
+    width: 100%;
+}
+
+.banner-title {
+    position: absolute;
+    bottom: .4rem;
+    left: .3rem;
+    font-size: .36rem;
+    color: #fff;
+}
+
+.img-swiper {
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-swiper>img {
+    width: 100%;
+}
+</style>
+```
+
+完成后提交代码到gitee
+
+```shell
+git add .
+git commit -m '20220913 add Banner to Detail.vue'
+git push
+```
+
