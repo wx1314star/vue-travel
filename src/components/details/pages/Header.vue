@@ -2,14 +2,14 @@
 <div class="header">
     <div class="header-return" v-show="showHeader">
         <span class="border-return"></span>
-        <span class="iconfont return">
+        <span class="iconfont return" @click="toHome">
             &#xe624;
         </span>
     </div>
 
     <div class="header-top" v-show="!showHeader" :style="styleOpacity">
         <div class="header-left">
-            <span class="iconfont">
+            <span class="iconfont" @click="toHome">
                 &#xe624;
             </span>
         </div>
@@ -45,6 +45,12 @@ export default {
             }
         })
     },
+    methods: {
+        //返回首页
+        toHome() {
+            this.$router.push('/');
+        }
+    }
 }
 </script>
 
