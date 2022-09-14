@@ -11,7 +11,13 @@
     </div>
 
     <div class="img-swiper" v-show="imgSwiper" @click="hideSwiper">
-        <img src="/api/img/like1.jpg" />
+        <swiper :options="swiperOption">
+            <swiper-slide v-for="item in bannerList" :key="item.id">
+                <img :src="item.imgUrl" />
+            </swiper-slide>
+
+        </swiper>
+        <div class="swiper-pagination" slot="pagination"></div>
     </div>
 </div>
 </template>
@@ -20,6 +26,22 @@
 export default {
     data() {
         return {
+            swiperOption: {
+                pagination: {
+                    el: '.swiper-pagination',
+                    type: 'fraction',
+                },
+            },
+            bannerList: [{
+                id: "01",
+                imgUrl: "/api/img/like1.jpg"
+            }, {
+                id: "02",
+                imgUrl: "/api/img/like2.jpg"
+            }, {
+                id: "03",
+                imgUrl: "/api/img/like3.jpg"
+            }],
             imgSwiper: false
         }
     },
@@ -71,5 +93,13 @@ export default {
 
 .img-swiper>img {
     width: 100%;
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal>.swiper-pagination-bullets {
+    bottom: .6rem;
+    font-size: .32rem;
+    color: #fff;
 }
 </style>

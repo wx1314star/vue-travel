@@ -6088,3 +6088,357 @@ git commit -m '20220913 add Banner to Detail.vue'
 git push
 ```
 
+###### 三十二、照片墙轮播功能
+
+修改Banner.vue组件内容，添加swiper内容
+
+```vue
+<template>
+<div class="banner">
+
+    <div @click="showSwiper">
+        <div class="banner-img">
+            <img src="/api/img/like1.jpg" />
+        </div>
+        <div class="banner-title">
+            野鸭湖风景区(AAAA景区)
+        </div>
+    </div>
+
+    <div class="img-swiper" v-show="imgSwiper" @click="hideSwiper">
+        <swiper :options="swiperOption">
+            <swiper-slide v-for="item in bannerList" :key="item.id">
+                <img :src="item.imgUrl" />
+            </swiper-slide>
+
+        </swiper>
+        <div class="swiper-pagination" slot="pagination"></div>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            swiperOption: {
+                pagination: {
+                    //分页器和加入分式
+                    //https://www.swiper.com.cn/api/pagination/299.html
+                    el: '.swiper-pagination',
+                    type: 'fraction',
+                },
+            },
+            bannerList: [{
+                id: "01",
+                imgUrl: "/api/img/like1.jpg"
+            }, {
+                id: "02",
+                imgUrl: "/api/img/like2.jpg"
+            }, {
+                id: "03",
+                imgUrl: "/api/img/like3.jpg"
+            }],
+            imgSwiper: false
+        }
+    },
+    methods: {
+        showSwiper() {
+            this.imgSwiper = true;
+        },
+        hideSwiper() {
+            this.imgSwiper = false;
+        }
+    }
+}
+</script>
+
+<style scoped>
+.banner {
+    position: relative;
+}
+
+.banner-img {
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 55%;
+}
+
+.banner-img img {
+    width: 100%;
+}
+
+.banner-title {
+    position: absolute;
+    bottom: .4rem;
+    left: .3rem;
+    font-size: .36rem;
+    color: #fff;
+}
+
+.img-swiper {
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-swiper>img {
+    width: 100%;
+}
+
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-container-horizontal>.swiper-pagination-bullets {
+    bottom: .6rem;
+    font-size: .32rem;
+    color: #fff;
+}
+</style>
+```
+
+###### 三十三、Header组件布局
+
+修改details=>pages=>Header.vue内容，加入顶部返回
+
+```vue
+<template>
+<div class="header">
+    <div class="header-return">
+        <span class="border-return"></span>
+        <span class="iconfont return">
+            &#xe624;
+        </span>
+    </div>
+
+    <div class="header-top">
+        <div class="header-left">
+            <span class="iconfont">
+                &#xe624;
+            </span>
+        </div>
+        <span>野鸭湖风景区</span>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/var.styl';
+
+.header-return {
+    position: absolute;
+    left: .1rem;
+    top: .1rem;
+    width: .72rem;
+    height: .72rem;
+}
+
+.border-return {
+    display: block;
+    background-color: #000;
+    width: .72rem;
+    height: .72rem;
+    opacity: .5;
+    border-radius: .36rem;
+}
+
+.return {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #fff;
+    width: .72rem;
+    line-height: .72rem;
+    text-align: left;
+    text-indent: .20rem;
+    font-size: .32rem;
+    font-weight: bold;
+}
+
+.header-top {
+    position: fixed;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    line-height: .88rem;
+    background: $bgColor;
+    font-size: .30rem;
+    color: $textColor;
+    z-index:99;
+}
+.header-top>span{
+    padding-right: 0.9rem;
+}
+
+.header-left {
+    position:absolute;
+    left:0;
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+}
+</style>
+```
+
+###### 三十四、Header透明度运动
+
+修改Detail.vue内容中，加入一个div添加高度
+
+```vue
+<template>
+<div>
+    <detail-banner />
+    <detail-header />
+    <div style="height: 2000px;"></div>
+</div>
+</template>
+
+<script>
+import DetailBanner from './pages/Banner'
+import DetailHeader from './pages/Header'
+export default {
+    components: {
+        DetailBanner,
+        DetailHeader
+    }
+}
+</script>
+
+<style scoped>
+
+</style>
+```
+
+修改Header.vue内容，加入一个透明度的滚动事件
+
+```vue
+<template>
+<div class="header">
+    <div class="header-return" v-show="showHeader">
+        <span class="border-return"></span>
+        <span class="iconfont return">
+            &#xe624;
+        </span>
+    </div>
+
+    <div class="header-top" v-show="!showHeader" :style="styleOpacity">
+        <div class="header-left">
+            <span class="iconfont">
+                &#xe624;
+            </span>
+        </div>
+        <span>野鸭湖风景区</span>
+    </div>
+</div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            showHeader: true,
+            styleOpacity: {
+                opacity: 0
+            }
+        }
+    },
+    mounted() {
+        //闭包时声明另一个_this指向
+        let _this = this;
+        window.addEventListener("scroll", function () {
+            let top = document.documentElement.scrollTop;
+            if (top > 45) {
+                let opacity = top / 130;
+                opacity = opacity > 1 ? 1 : opacity;
+                _this.styleOpacity = {
+                    opacity
+                }
+                _this.showHeader = false;
+            } else {
+                _this.showHeader = true;
+            }
+        })
+    },
+}
+</script>
+
+<style lang="stylus" scoped>
+@import '~css/var.styl';
+
+.header-return {
+    position: absolute;
+    left: .1rem;
+    top: .1rem;
+    width: .72rem;
+    height: .72rem;
+}
+
+.border-return {
+    display: block;
+    background-color: #000;
+    width: .72rem;
+    height: .72rem;
+    opacity: .5;
+    border-radius: .36rem;
+}
+
+.return {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #fff;
+    width: .72rem;
+    line-height: .72rem;
+    text-align: left;
+    text-indent: .20rem;
+    font-size: .32rem;
+    font-weight: bold;
+}
+
+.header-top {
+    position: fixed;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    line-height: .88rem;
+    background: $bgColor;
+    font-size: .30rem;
+    color: $textColor;
+    z-index: 99;
+}
+
+// .header-top>span {
+//     padding-right: 0.9rem;
+// }
+
+.header-left {
+    position: absolute;
+    left: 0;
+    width: .4rem;
+    padding: 0 .2rem;
+    text-align: center;
+    font-weight: 700;
+}
+</style>
+```
+
+代码提交到gitee
+
+```shell
+git add .
+git commit -m '20220914 add alpha to Header.vue'
+git push
+```
+
